@@ -1,0 +1,260 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #2c3e50, #bdc3c7);
+  color: #fff;
+  overflow-x: hidden;
+  transition: background 0.5s, color 0.5s;
+}
+
+/* Night Mode */
+body.dark-mode {
+  background: #111;
+  color: #eee;
+}
+
+/* Particle Background */
+#particles-js {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: -1;
+}
+
+/* Night Mode Toggle Button */
+#toggleTheme {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+#toggleTheme:hover {
+  background: #ddd;
+}
+
+/* Header */
+header {
+  background: linear-gradient(135deg, #2980b9, #6dd5fa);
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+header h1 {
+  margin: 0;
+  font-size: 2.5em;
+}
+
+/* Main Content */
+main {
+  padding: 20px;
+}
+
+/* Section Titles */
+h2 {
+  margin-bottom: 15px;
+  font-size: 1.8em;
+  text-align: center;
+  border-bottom: 2px solid rgba(255,255,255,0.4);
+  padding-bottom: 10px;
+}
+
+/* Sensor Data Display Area */
+.sensor-readings {
+  margin-bottom: 40px;
+}
+.gauges {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+/* 3D Card Hover Effect for Gauges (Glassmorphism + Parallax) */
+.gauge {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+.gauge:hover {
+  transform: perspective(1000px) rotateX(5deg) rotateY(5deg) scale(1.05);
+}
+.gauge h3 {
+  margin-top: 0;
+  font-weight: 700;
+}
+
+/* Prediction and Response Display Area */
+.predictions-responses {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+.card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  transition: transform 0.3s ease;
+}
+.card:hover {
+  transform: perspective(1000px) rotateX(5deg) rotateY(5deg) scale(1.05);
+}
+.card h2 {
+  margin-top: 0;
+  font-weight: 700;
+}
+
+/* Fault Card Animation */
+.card.fault {
+  animation: flicker 1s infinite alternate;
+  border: 2px solid red;
+}
+@keyframes flicker {
+  from { box-shadow: 0 0 10px red; }
+  to { box-shadow: 0 0 20px orange; }
+}
+
+/* Response Alert Animation */
+.card.response-alert {
+  animation: pulse 1s infinite;
+  border: 2px solid yellow;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 5px yellow; }
+  50% { box-shadow: 0 0 20px gold; }
+  100% { box-shadow: 0 0 5px yellow; }
+}
+
+/* Historical Data Charts Section */
+.historical-charts {
+  margin-bottom: 40px;
+  padding: 20px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 15px;
+}
+.historical-charts h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.chart-container {
+  background: rgba(0,0,0,0.1);
+  padding: 10px;
+  border-radius: 10px;
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+  transition: transform 0.3s ease;
+}
+.chart-container:hover {
+  transform: perspective(1000px) rotateX(5deg) rotateY(5deg) scale(1.05);
+}
+.chart-container h3 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Playback Controls */
+.playback-controls {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.playback-controls button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* Debug Log Section */
+#debugLogSection {
+  position: relative;
+  max-width: 600px;
+  margin: 20px auto;
+  background: rgba(0,0,0,0.3);
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 0.9em;
+}
+#mqttLog {
+  max-height: 100px;
+  overflow: hidden;
+  transition: max-height 0.3s;
+}
+#mqttLog.expanded {
+  max-height: none;
+}
+#toggleDebugLog {
+  display: block;
+  margin: 10px auto 0;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* Modal Styles */
+.modal {
+  display: none; /* Initially hidden */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0,0,0,0.7);
+}
+.modal-content {
+  background: rgba(255,255,255,0.9);
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  text-align: center;
+  color: #333;
+}
+.close-button {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+/* Footer */
+footer {
+  background: linear-gradient(135deg, #2980b9, #6dd5fa);
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 -4px 8px rgba(0,0,0,0.3);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 0.9em;
+}
