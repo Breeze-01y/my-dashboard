@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Industrial IoT Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Google Charts Library -->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <!-- Paho MQTT Library (reserved interface) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
+  <!-- Particles.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <!-- SortableJS for draggable layout -->
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+</head>
+<body>
+  <!-- Particle Background Container -->
+  <div id="particles-js"></div>
+
+  <!-- Night Mode Toggle Button -->
+  <button id="toggleTheme">🌗 Toggle Theme</button>
+
+  <header>
+    <!-- Static Title -->
+    <h1>Industrial IoT Data Dashboard</h1>
+  </header>
+  <main>
+    <!-- Sensor Data Display Area -->
+    <section class="sensor-readings">
+      <h2>Sensor Data (Volt, Rotate, Pressure, Vibration)</h2>
+      <div class="gauges">
+        <!-- Each gauge has a data-sensor attribute; draggable via SortableJS -->
+        <div class="gauge" id="gauge_volt" data-sensor="volt">
+          <h3>Volt</h3>
+          <div id="gauge_volt_chart"></div>
+        </div>
+        <div class="gauge" id="gauge_rotate" data-sensor="rotate">
+          <h3>Rotate</h3>
+          <div id="gauge_rotate_chart"></div>
+        </div>
+        <div class="gauge" id="gauge_pressure" data-sensor="pressure">
+          <h3>Pressure</h3>
+          <div id="gauge_pressure_chart"></div>
+        </div>
+        <div class="gauge" id="gauge_vibration" data-sensor="vibration">
+          <h3>Vibration</h3>
+          <div id="gauge_vibration_chart"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Prediction and Response Status Area -->
+    <section class="predictions-responses">
+      <div class="card prediction-card">
+        <h2>Fault Prediction</h2>
+        <p>Current Prediction: <span id="predictionStatus">Normal</span></p>
+      </div>
+      <div class="card response-card">
+        <h2>Response Status</h2>
+        <p>Current Response: <span id="responseStatus">No Action</span></p>
+      </div>
+    </section>
+
+    <!-- Historical Data Charts Section -->
+    <section class="historical-charts">
+      <h2>Historical Data Charts</h2>
+      <div class="chart-container" data-sensor="volt">
+        <h3>Volt History</h3>
+        <div id="lineChart_volt"></div>
+      </div>
+      <div class="chart-container" data-sensor="rotate">
+        <h3>Rotate History</h3>
+        <div id="lineChart_rotate"></div>
+      </div>
+      <div class="chart-container" data-sensor="pressure">
+        <h3>Pressure History</h3>
+        <div id="lineChart_pressure"></div>
+      </div>
+      <div class="chart-container" data-sensor="vibration">
+        <h3>Vibration History</h3>
+        <div id="lineChart_vibration"></div>
+      </div>
+    </section>
+
+    <!-- Playback Controls for Real-Time Line Charts -->
+    <section id="playbackControls" class="playback-controls">
+      <button id="btnReplay">Replay</button>
+      <button id="btnPause">Pause</button>
+      <button id="btnResume">Resume</button>
+    </section>
+
+    <!-- Debug Log Panel -->
+    <section id="debugLogSection" class="mqtt-debug">
+      <h3>Debug Log</h3>
+      <div id="mqttLog" class="collapsed"></div>
+      <button id="toggleDebugLog">Show All</button>
+    </section>
+  </main>
+
+  <!-- Modal: Display sensor's real-time line chart -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" id="modalClose">&times;</span>
+      <h2 id="modalTitle">Real-Time Data Chart</h2>
+      <div id="modalChart"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Industrial IoT Dashboard</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
